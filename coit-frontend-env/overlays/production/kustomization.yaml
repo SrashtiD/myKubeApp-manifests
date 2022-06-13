@@ -6,15 +6,15 @@ resources:
 - namespace.yaml
 
 images:
-- name: coitlearning/coit-backend1
-  newName: coitlearning/coit-backend1
-  newTag: v11
+- name: coitlearning/coit-frontend
+  newName: coitlearning/coit-frontend
+  newTag: latest
 
 commonLabels:
   environment: production
 nameSuffix: -production
 replicas:
-  - name: coit-backend1
+  - name: coit-frontend
     count: 4
 
 namespace: production
