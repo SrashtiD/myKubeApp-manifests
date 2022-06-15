@@ -10,4 +10,4 @@ images:
   newName: coitlearning/coit-frontend
   newTag: latest
 
-namespace: local
+namespace: local-f
