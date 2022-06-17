@@ -2,9 +2,9 @@ pipeline{
 	agent any 
 	
 	environment{
-			//dockerregistry= "srashtid/coit-app"
+			dockerregistry= "srashtid/coit-simple-microservice"
 			registryCredential = "dockerhub"
-			//dockerImage=''
+			dockerImage=""
 			tag = "1.0.0"
 		}
 		stages{
@@ -20,7 +20,7 @@ pipeline{
 							dir('./coit-frontend'){
 								script{
 								def FRONTENDDOCKER= 'Dockerfile-multistage'
-								DockerFrontend= docker.build ("srashtid/coit-frontend:${tag}","-f ${FRONTENDDOCKER} .")
+								DockerFrontend= docker.build ("srashtid/coit-frontend:${tag}" , "-f ${FRONTENDDOCKER} .")
 								docker.withRegistry= ("",registryCredential) {
 								DockerFrontend.push()
 								}
@@ -34,7 +34,7 @@ pipeline{
 							dir('./coit-backend1'){
 								script{
 								def BACKENDDOCKER= 'Dockerfile-multistage'
-								DockerBackend1= docker.build ("srashtid/coit-backend1:${env.BUILD_TAG}","-f ${BACKENDDOCKER} .")
+								DockerBackend1= docker.build ("srashtid/coit-backend1:${env.BUILD_TAG}" , "-f ${BACKENDDOCKER} .")
 								docker.withRegistry= ("",registryCredential) {
 								DockerBackend1.push()
 								}
