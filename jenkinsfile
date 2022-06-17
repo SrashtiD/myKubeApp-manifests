@@ -1,0 +1,49 @@
+pipeline{
+	agent any 
+	
+	environment{
+			//dockerregistry= "srashtid/coit-app"
+			registryCredential = "dockerhub"
+			dockerImage=''
+			tag = "1.0.0"
+		}
+		stages{
+			stage('Checkout code'){
+				steps{
+					checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/SrashtiD/coit-simple-microservice.git']]])
+				}
+			}
+			stage('build Images'){
+				parallel{
+					stage('build frontend'){
+						steps{
+							dir('./coit-frontend'){
+								script{
+								def FRONTENDDOCKER= 'Dockerfile-multistage'
+								DockerFrontend= docker.build ("srashtid/coit-frontend:${tag}","-f ${FRONTENDDOCKER} .")
+								docker.withRegistry= (",registryCredential){
+								DockerFrontend.push()
+								}
+								}
+							}
+						}
+					}
+			
+					stage('build backend1'){
+						steps{
+							dir('./coit-backend1'){
+								script{
+								def BACKENDDOCKER= 'Dockerfile-multistage'
+								DockerBackend1= docker.build ("srashtid/coit-backend1:${env.BUILD_TAG}","-f ${BACKENDDOCKER} .")
+								docker.withRegistry= (",registryCredential){
+								DockerBackend1.push()
+								}
+								}
+							}
+						}
+					}
+			
+				}
+			}
+		}
+}

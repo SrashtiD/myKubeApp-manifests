@@ -17,4 +17,4 @@ replicas:
   - name: coit-frontend
     count: 4
 
-namespace: production
+namespace: production-f

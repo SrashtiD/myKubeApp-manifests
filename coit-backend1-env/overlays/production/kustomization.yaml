@@ -17,4 +17,4 @@ replicas:
   - name: coit-backend1
     count: 4
 
-namespace: production
+namespace: production-b
