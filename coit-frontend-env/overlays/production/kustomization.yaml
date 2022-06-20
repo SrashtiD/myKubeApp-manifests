@@ -6,8 +6,8 @@ resources:
 - namespace.yaml
 
 images:
-- name: coitlearning/coit-frontend
-  newName: coitlearning/coit-frontend
+- name: srashtid/coit-frontend
+  newName: srashtid/coit-frontend
   newTag: latest
 
 commonLabels:
